@@ -3,7 +3,8 @@ import "./App.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import { DataTable, DataTablePageEvent, DataTableSelectionChangeEvent } from "primereact/datatable";
+// import { DataTable, DataTablePageEvent, DataTableSelectionChangeEvent } from "primereact/datatable";
+import { DataTable, DataTablePageEvent } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -109,7 +110,9 @@ const App: React.FC = () => {
                 <InputNumber
                     id="itemsToSelect"
                     value={itemsToSelect}
-                    onValueChange={(e) => setItemsToSelect(e.value)}
+                    // onValueChange={(e) => setItemsToSelect(e.value)}
+                    onValueChange={(e) => setItemsToSelect(e.value ?? null)}
+
                     min={1}
                     max={totalRecords}
                     mode="decimal"
@@ -125,10 +128,12 @@ const App: React.FC = () => {
                 rowsPerPageOptions={[5, 10, 25, 50]}
                 onPage={onPageChange}
                 selection={selectedRows}
-                onSelectionChange={(e: DataTableSelectionChangeEvent) => {
-                    const currentSelection = Array.isArray(e.value) ? e.value : [e.value];
-                    setSelectedRows(currentSelection);
-                }}
+                // onSelectionChange={(e: DataTableSelectionChangeEvent) => {
+                //     const currentSelection = Array.isArray(e.value) ? e.value : [e.value];
+                //     setSelectedRows(currentSelection);
+                // }}
+                onSelectionChange={(e: { value: Artwork[] }) => setSelectedRows(e.value)}
+
                 selectionMode="checkbox"
             >
                 <Column selectionMode="multiple" headerStyle={{ width: "3em" }}></Column>
